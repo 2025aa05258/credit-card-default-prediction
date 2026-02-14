@@ -67,6 +67,19 @@ st.sidebar.markdown(
     "6 Classification Models"
 )
 
+# (d) Download Sample Data
+if os.path.exists("data/test_data.csv"):
+    with open("data/test_data.csv", "rb") as csv_file:
+        st.sidebar.download_button(
+            label="📥 Download Sample CSV",
+            data=csv_file.read(),
+            file_name="sample_test_data.csv",
+            mime="text/csv"
+        )
+
+
+
+
 # ─────────────────────────────────────────────
 # Main Title
 # ─────────────────────────────────────────────
