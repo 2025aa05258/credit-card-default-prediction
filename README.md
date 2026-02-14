@@ -9,20 +9,35 @@ Predict whether a credit card client will **default on their payment next month*
 - **Dataset:** Default of Credit Card Clients (UCI ML Repository)
 - **Instances:** 30,000
 - **Features:** 23 (after dropping the ID column)
-- **Target Variable:** `default.payment.next.month` (binary: 0 = No Default, 1 = Default)
+- **Target Variable:** `target` (originally `default.payment.next.month`)
 - **Class Distribution:** ~77.88% No Default, ~22.12% Default (imbalanced)
 
-### Feature Details:
-| Feature | Description |
-|---------|-------------|
-| LIMIT_BAL | Amount of credit given (NT dollar) |
-| SEX | Gender (1 = male, 2 = female) |
-| EDUCATION | Education level (1 = graduate school, 2 = university, 3 = high school, 4 = others) |
-| MARRIAGE | Marital status (1 = married, 2 = single, 3 = others) |
-| AGE | Age in years |
-| PAY_0 to PAY_6 | Repayment status from April to September (-1 = paid duly, 1 = 1 month delay, ..., 9 = 9+ months delay) |
-| BILL_AMT1 to BILL_AMT6 | Bill statement amount from April to September (NT dollar) |
-| PAY_AMT1 to PAY_AMT6 | Previous payment amount from April to September (NT dollar) |
+### Full Feature List (23 features):
+| Category | Feature | Description |
+|----------|---------|-------------|
+| **Demographic** | `LIMIT_BAL` | Amount of given credit (NT dollar) |
+| | `SEX` | Gender (1=male, 2=female) |
+| | `EDUCATION` | Education (1=grad school, 2=university, 3=high school, 4=others, 5=unknown, 6=unknown) |
+| | `MARRIAGE` | Marital status (1=married, 2=single, 3=others) |
+| | `AGE` | Age in years |
+| **History** | `PAY_0` | Repayment status in Sept, 2005 (-1=pay duly, 1=payment delay for one month, 2=two months, ... 9=nine months and above) |
+| | `PAY_2` | Repayment status in August, 2005 |
+| | `PAY_3` | Repayment status in July, 2005 |
+| | `PAY_4` | Repayment status in June, 2005 |
+| | `PAY_5` | Repayment status in May, 2005 |
+| | `PAY_6` | Repayment status in April, 2005 |
+| **Bill Amount**| `BILL_AMT1` | Amount of bill statement in Sept, 2005 (NT dollar) |
+| | `BILL_AMT2` | Amount of bill statement in August, 2005 |
+| | `BILL_AMT3` | Amount of bill statement in July, 2005 |
+| | `BILL_AMT4` | Amount of bill statement in June, 2005 |
+| | `BILL_AMT5` | Amount of bill statement in May, 2005 |
+| | `BILL_AMT6` | Amount of bill statement in April, 2005 |
+| **Payment** | `PAY_AMT1` | Amount of previous payment in Sept, 2005 (NT dollar) |
+| | `PAY_AMT2` | Amount of previous payment in August, 2005 |
+| | `PAY_AMT3` | Amount of previous payment in July, 2005 |
+| | `PAY_AMT4` | Amount of previous payment in June, 2005 |
+| | `PAY_AMT5` | Amount of previous payment in May, 2005 |
+| | `PAY_AMT6` | Amount of previous payment in April, 2005 |
 
 ## c. Models Used
 
@@ -64,11 +79,12 @@ ml_assignment_2/
 ├── app.py                  # Streamlit web application
 ├── requirements.txt        # Python dependencies
 ├── README.md               # Project documentation
-├── model_training.ipynb    # Model training notebook
+├── .gitignore              # Git ignore file
 ├── data/
 │   ├── dataset.csv         # Original dataset
 │   └── test_data.csv       # Test split for Streamlit app
 └── model/
+    ├── model_training.ipynb # Model training notebook 
     ├── scaler.pkl           # StandardScaler
     ├── feature_names.pkl    # Feature column names
     ├── model_results.csv    # Comparison table results
